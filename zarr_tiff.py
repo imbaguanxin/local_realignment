@@ -120,7 +120,7 @@ def main_origin(section, z_start, z_end):
     raw_file = '/n/groups/htem/temcagt/datasets/cb2/zarr_volume/cb2_v3.zarr'
     raw_ds = s['raw_ds']
     now = datetime.now().strftime("%m%d.%H.%M.%S")
-    output = f'/n/groups/htem/users/xg76/local_realignment/test_img/{now}_{section}'
+    output = f'/n/groups/htem/Segmentation/xg76/local_realignment/mipmap/{now}_{section}_{z_start}_{z_end}'
 
     coord_begin = s['coord_begin']
     coord_end = s['coord_end']
@@ -142,32 +142,29 @@ def main_origin(section, z_start, z_end):
         img = raw_img_list[0]
         # write_to_tiff(img, os.path.join(output, f'{z}_origin.tif'))
         mipmap = down_sampling_img(img, scale_list)[0]
-        write_to_tiff(mipmap, os.path.join(output, f'{section}_{z}_{scale_list[0]}_mipmap.tif'))
+        write_to_tiff(mipmap, os.path.join(output, f'{section}_{z}_{scale_list[0]}_mipmap.tiff'))
 
 
 def test_write_tiff():
     now = datetime.now().strftime("%m%d.%H.%M.%S")
-    # config_f = '/n/groups/htem/data/qz/200121_B2_final_gt/cube1.json'
-    # script_name = os.path.basename(config_f)
-    # script_name = script_name.split(".")[0]
     
     raw_file = '/n/groups/htem/data/qz/200121_B2_final.n5'
     raw_ds = "volumes/raw"
     coord_begin = [6761, 6145, 6634]
     coord_end= [7486, 6633, 6756]
 
-    output = f'/n/groups/htem/users/xg76/local_realignment/tiffs/{now}'
+    output = f'/n/groups/htem/Segmentation/xg76/local_realignment/tiffs/{now}'
     os.makedirs(output, exist_ok=True)
     pics = get_ndarray_img_from_zarr(raw_file, raw_ds, coord_begin, coord_end)
     print(len(pics))
     for idx, pic in enumerate(pics):
-        fpath = f'/n/groups/htem/users/xg76/local_realignment/tiffs/{now}/{idx}.tiff'
+        fpath = f'/n/groups/htem/Segmentation/xg76/local_realignment/tiffs/{now}/{idx}.tiff'
         tile = Image.fromarray(pic)
         tile.save(fpath, quality=95)
 
 
 def test_mipmapping():
-    lr = '/n/groups/htem/users/xg76/local_realignment'
+    lr = '/n/groups/htem/Segmentation/xg76/local_realignment'
     pictures = os.listdir('/n/groups/htem/users/xg76/local_realignment/tiffs')
     img_list = [cv2.imread(os.path.join(lr, 'tiffs', p), -1) for p in pictures]
 
