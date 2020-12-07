@@ -1,4 +1,4 @@
-import numpy as numpy
+import numpy as np 
 import os
 from scipy.stats import pearsonr
 
