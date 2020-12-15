@@ -2,7 +2,7 @@ import os
 from PIL import Image
 import re
 import shutil
-from zarr_tiff import down_sampling_img
+# from zarr_tiff import down_sampling_img
 from PIL import Image, ImageOps
 import numpy as np
 import shutil
@@ -25,10 +25,9 @@ def make_gif():
 
 
 def test():
-    f_name = '/n/groups/htem/Segmentation/xg76/local_realignment/test_zarr'
-    data_set = 'test'
+    f_name = '/n/groups/htem/Segmentation/xg76/local_realignment/test.zarr'
+    data_set = 'volumes/raw'
     roi = daisy.Roi((0, 0, 0), (5000, 5000, 5000))
-    write_roi = daisy.Roi((0, 0, 0), (1000, 1000, 40))
     voxel_size = np.array([40, 4, 4])
     zarr_out = daisy.prepare_ds(
         f_name,
@@ -37,9 +36,13 @@ def test():
         voxel_size,
         np.uint8
     )
+
+    write_roi = daisy.Roi((0, 0, 0), (40, 3200, 4000))
     i = cv2.imread(
-        '/n/groups/htem/Segmentation/xg76/local_realignment/1204/0.tiff')
-    arr = np.zeros(write_roi.get_shape() / voxel_size, dtype=np.uint8)
+        '/n/groups/htem/Segmentation/xg76/local_realignment/1204/0.tiff',
+        cv2.IMREAD_GRAYSCALE)
+    shape = (np.array(write_roi.get_shape()) / voxel_size).astype(int)
+    arr = np.zeros(shape, dtype=np.uint8)
     arr[0, :, :] = i
     zarr_out[write_roi] = arr
 

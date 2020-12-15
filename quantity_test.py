@@ -21,7 +21,7 @@ class PatternTest:
             result = np.correlate(self._normalize_img(img_base), self._normalize_img(img_test))[0]
         elif method == CHUNKED_PEAESON_CORRELATION:
             result = pearsonr(img_base.flatten(), img_test.flatten())[0]
-        elif:
+        else:
             raise ValueError('Test Method not found: {}'.format(method))
         return result
     

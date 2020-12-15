@@ -50,10 +50,10 @@ class LocalRealignment:
             # calculate img
             true_loc = (-off_set[0][1] + s_h, -off_set[0][0] + s_w)
             print(true_loc)
-            true_img = raw_img_list[i + 1][true_loc[0]: true_loc[0] + height, true_loc[1]: true_loc[1] + width]
-            true_img_list.append(true_img)
+            # true_img = raw_img_list[i + 1][true_loc[0]: true_loc[0] + height, true_loc[1]: true_loc[1] + width]
+            # true_img_list.append(true_img)
             shift_back_vec_list.append((-off_set[0][0], -off_set[0][1]))
-        return true_img_list, shift_back_vec_list
+        return shift_back_vec_list
 
     def __cut_image(self, img, stride_w=None, stride_h=None):
         if stride_w is None:

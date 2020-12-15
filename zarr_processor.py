@@ -1,14 +1,24 @@
-from PIL import Image
+from PIL import Image, ImageOps
 import daisy
 import numpy as np
 import os
 
 class ZarrProcessor:
 
-    def __init__(self, raw_file, raw_ds):
-        self.raw_file = raw_file
-        self.raw_ds = raw_ds
-        self.cutout_ds = daisy.open_ds(raw_file, raw_ds)
+    def __init__(self, read_file=None, read_ds=None, write_file=None, write_ds=None):
+        self.read_file = read_file
+        self.read_ds = read_ds
+        if read_file is None or read_ds is None:
+            self.read_cutout_ds = None
+        else:
+            self.read_cutout_ds = daisy.open_ds(self.read_file, self.read_ds)
+
+        self.write_file = write_file
+        self.write_ds = write_ds
+        if write_file is None or write_ds is None:
+            self.write_cutout_ds = None
+        else:
+            self.write_cutout_ds = daisy.open_ds(self.read_file, self.read_ds)
     
     def get_image(self, coord_begin, coord_end):
         voxel_size = self.cutout_ds.voxel_size
@@ -24,6 +34,7 @@ class ZarrProcessor:
     
     def write_to_tiff(self, img, fpath):
         tile = Image.fromarray(img)
+        tile = ImageOps.grayscale(tile)
         tile.save(fpath, quality=95)
 
     def get_image_list(self, coord_begin, coord_end):
