@@ -1,5 +1,5 @@
 {
-    "output_path": "/n/groups/htem/Segmentation/xg76/realignment/result",
+    "output_path": "/n/groups/htem/Segmentation/xg76/local_realignment/result",
     "zarr_info": {
         "read_file": "/n/groups/htem/temcagt/datasets/cb2/zarr_volume/cb2_v3.zarr",
         "read_ds": "volumes/raw_mipmap/s2_rechunked",
@@ -20,5 +20,4 @@
         "img": true,
         "description_img": true
     }
-    
 }
