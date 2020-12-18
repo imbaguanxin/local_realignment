@@ -1,0 +1,23 @@
+{
+    "output_path": "/n/groups/htem/Segmentation/xg76/local_realignment/result",
+    "zarr_info": {
+        "read_file": "/n/groups/htem/Segmentation/shared-nondev/cb3_segmentation/gt/tmn7/ml6_ml488_setup04_200921.zarr",
+        "read_ds": "volumes/raw",
+        "stride_rate": 0.032
+    },
+    "realign_info":{
+        "coord_begin": [
+            1000,
+            1000,
+            100
+        ],
+        "coord_end": [
+            1500,
+            1500,
+            120
+        ],
+        "interval": 1,
+        "img": false,
+        "description_img": true
+    }
+}

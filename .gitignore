@@ -2,3 +2,4 @@
 *.tiff
 __pycache__/
 *.zarr
+result/
