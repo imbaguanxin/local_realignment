@@ -1,0 +1,24 @@
+{
+    "output_path": "/n/groups/htem/Segmentation/xg76/realignment/result",
+    "zarr_info": {
+        "read_file": "/n/groups/htem/temcagt/datasets/cb2/zarr_volume/cb2_v3.zarr",
+        "read_ds": "volumes/raw_mipmap/s2_rechunked",
+        "stride_rate": 0.032
+    },
+    "realign_info":{
+        "coord_begin": [
+            10000,
+            11000,
+            100
+        ],
+        "coord_end": [
+            11000,
+            12000,
+            120
+        ],
+        "interval": 1,
+        "img": true,
+        "description_img": true
+    }
+    
+}
