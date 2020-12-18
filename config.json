@@ -17,7 +17,7 @@
             120
         ],
         "interval": 1,
-        "img": true,
-        "description_img": true
+        "img": false,
+        "description_img": false
     }
 }
