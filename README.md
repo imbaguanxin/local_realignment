@@ -50,4 +50,4 @@ sample onfig:
 
 Result: {output_path}/xxxx.result.csv
 
-shift of each image according to the top image.
+shift of each image according to the top image. There is no index in the result file.
