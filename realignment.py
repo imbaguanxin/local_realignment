@@ -43,6 +43,7 @@ class Realignment:
             pattern_list,
             stride_r,
             stride_c,
+            shift_limit,
             method=cv2.TM_CCOEFF):
         """
         stride_list: [list of np.array] input image with stride (larger)
@@ -60,7 +61,7 @@ class Realignment:
                 f'stride image length {stride_length} not eqaul to pattern image length {pattern_length}')
 
         # shift_x, shift_y: width and height
-        off_set = np.array([[0, 0]])
+        off_set = np.array([0, 0])
         off_set_list = [(0, 0)]
 
         for i in range(len(stride_list) - 1):
@@ -76,8 +77,15 @@ class Realignment:
             else:
                 top_left = max_loc
 
-            off_set = off_set + top_left - np.array([[stride_r, stride_c]])
-            off_set_list.append((off_set[0][0], off_set[0][1]))
+            top_left = top_left - np.array([stride_r, stride_c])
+
+            if shift_limit is not None:
+                shift_x = min(max(top_left[0], -shift_limit), shift_limit)
+                shift_y = min(max(top_left[1], -shift_limit), shift_limit)
+                top_left = np.array([shift_x, shift_y])
+
+            off_set = off_set + top_left
+            off_set_list.append((off_set[0], off_set[1]))
             # calculate img
         return off_set_list
 
@@ -105,6 +113,7 @@ class Realignment:
                 coord_begin,
                 coord_end,
                 output_path,
+                shift_limit=None,
                 interval=1,
                 img=True,
                 description_img=True):
@@ -126,7 +135,8 @@ class Realignment:
             stride_list=p,
             pattern_list=s,
             stride_r=sr,
-            stride_c=sc)
+            stride_c=sc,
+            shift_limit=shift_limit)
 
         logging.info('Generating Output ...')
         if img:
